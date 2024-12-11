@@ -1,11 +1,13 @@
 import { debounce } from "@mui/material";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store";
 import { selectOompaLoompasState } from "../store/oompaLoompa.selectors";
 import { fetchOompaLoompas } from "../store/thunks/oompaLoompaThunk";
 
 function useOompaLoompas() {
   const { list: oompaLoompas, isLoading, hasMore, error } = useAppSelector(selectOompaLoompasState);
+
+  const [query, setQuery] = useState("");
 
   const dispatch = useAppDispatch();
 
@@ -30,17 +32,18 @@ function useOompaLoompas() {
     return () => window.removeEventListener("scroll", debouncedHandleScroll);
   }, [debouncedHandleScroll]);
 
-  const onSearch = useCallback(async (query: string) => {
-    const resultSearch = oompaLoompas.filter((oompaLoompa) => {
+
+  const filteredOompaLoompas = useMemo(() => {
+    if(!query)return oompaLoompas
+    return oompaLoompas.filter((oompaLoompa) => {
       return oompaLoompa.first_name.toLowerCase().includes(query.toLowerCase()) ||
        oompaLoompa.last_name.toLowerCase().includes(query.toLowerCase()) || 
        oompaLoompa.profession.toLowerCase().includes(query.toLowerCase())
-  });
-  console.log(resultSearch);
-    return resultSearch;
-  }, [oompaLoompas])
+  })
+  },[query, oompaLoompas])
 
-return { fetchOompaLoompas, onSearch, oompaLoompas, hasMore, isLoading, error };
+
+return { filteredOompaLoompas, hasMore, isLoading, error,query, setQuery };
 }
 
 export default useOompaLoompas;

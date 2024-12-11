@@ -1,29 +1,20 @@
-import { Container, debounce, TextField, Typography } from "@mui/material";
+import { Container, TextField, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import { useState } from "react";
 import useOompaLoompas from "../../hooks/useOompaLoompas";
 import CardOompaLoompa from "./CardOompaLoompa";
 
 function MainView() {
 
   const {
-    oompaLoompas,
-    onSearch,
+    filteredOompaLoompas: oompaLoompas,
     isLoading,
     error,
+    query,
+    setQuery,
+    
   } = useOompaLoompas();
 
-  const [query, setQuery] = useState("");
-
- 
-  const handleSearch = debounce((value: string) => {
-    onSearch(value);
-  }, 300);
-
-  const onChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
-    handleSearch(event.target.value);
-  };
+  // const [query, setQuery] = useState(""
 
   if (error) {
     return <Typography color="error">Error: {error.message}</Typography>;
@@ -36,7 +27,7 @@ function MainView() {
       </Typography>
       <TextField
         value={query}
-        onChange={onChangeSearch}
+        onChange={(e)=>setQuery(e.target.value)}
         placeholder="Search Oompa Loompas"
         fullWidth
         margin="normal"
