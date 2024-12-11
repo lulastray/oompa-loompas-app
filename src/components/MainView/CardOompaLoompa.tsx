@@ -1,5 +1,5 @@
 import { Card, CardContent, CardMedia, Typography } from '@mui/material'
-import { OompaLoompa } from '../../types/types'
+import { OompaLoompa } from '../../types'
 
 function CardOompaLoompa({oompaLoompa}: {oompaLoompa: OompaLoompa}) {
 const {image, first_name, last_name, gender, profession} = oompaLoompa

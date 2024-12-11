@@ -6,6 +6,7 @@
     "@emotion/react": "^11.13.5",
     "@emotion/styled": "^11.13.5",
     "@mui/material": "^6.1.10",
+    "@reduxjs/toolkit": "^2.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/node": "^16.18.121",
     "@types/react": "^18.3.12",
