@@ -3,19 +3,19 @@ export type OompaLoompa = {
     country : string
     email: string
     favorite: Favorite
-    first_name: string
+    firstName: string
     gender: string
     height: number
     id: number
     image: string
-    last_name: string
+    lastName: string
     profession: string
 }
 
 export type Favorite ={
     color: string
     food: string
-    random_string: string
+    randomString: string
     song: string
     superpower: string  
 }

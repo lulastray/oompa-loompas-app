@@ -36,8 +36,8 @@ function useOompaLoompas() {
   const filteredOompaLoompas = useMemo(() => {
     if(!query)return oompaLoompas
     return oompaLoompas.filter((oompaLoompa) => {
-      return oompaLoompa.first_name.toLowerCase().includes(query.toLowerCase()) ||
-       oompaLoompa.last_name.toLowerCase().includes(query.toLowerCase()) || 
+      return oompaLoompa.firstName.toLowerCase().includes(query.toLowerCase()) ||
+       oompaLoompa.lastName.toLowerCase().includes(query.toLowerCase()) || 
        oompaLoompa.profession.toLowerCase().includes(query.toLowerCase())
   })
   },[query, oompaLoompas])

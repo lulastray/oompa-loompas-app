@@ -2,7 +2,7 @@ import { Card, CardContent, CardMedia, Typography } from '@mui/material'
 import { OompaLoompa } from '../../types'
 
 function CardOompaLoompa({oompaLoompa}: {oompaLoompa: OompaLoompa}) {
-const {image, first_name, last_name, gender, profession} = oompaLoompa
+const {image, firstName, lastName, gender, profession} = oompaLoompa
   return (
     <Card>
       <CardMedia
@@ -13,7 +13,7 @@ const {image, first_name, last_name, gender, profession} = oompaLoompa
       />
       <CardContent>
         <Typography variant="h5" component="div">
-          {first_name} {last_name}
+          {firstName} {lastName}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {gender}

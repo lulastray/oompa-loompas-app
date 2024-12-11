@@ -14,8 +14,6 @@ function MainView() {
     
   } = useOompaLoompas();
 
-  // const [query, setQuery] = useState(""
-
   if (error) {
     return <Typography color="error">Error: {error.message}</Typography>;
   }
@@ -40,9 +38,8 @@ function MainView() {
       <Grid mt={4} container spacing={3}>
         {oompaLoompas &&
           oompaLoompas.map((oompaLoompa) =>{ 
-            console.log(oompaLoompa.id)
             return (
-            <Grid size={4} key={oompaLoompa.first_name}>
+            <Grid size={4} key={oompaLoompa.id}>
               <CardOompaLoompa oompaLoompa={oompaLoompa} />
             </Grid>
           )})}
