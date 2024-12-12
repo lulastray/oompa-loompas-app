@@ -5,7 +5,7 @@ import oompaLoompaReducer from './oompaLoompa.slice';
 export const store = 
   configureStore({
     reducer: {
-      oompaLoompa: oompaLoompaReducer,
+      oompaLoompas: oompaLoompaReducer,
   },
 });
 

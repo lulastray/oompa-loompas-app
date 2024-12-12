@@ -1,15 +1,16 @@
 import { debounce } from "@mui/material";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store";
 import { selectOompaLoompasState } from "../store/oompaLoompa.selectors";
 import { fetchOompaLoompas } from "../store/thunks/oompaLoompaThunk";
 
 function useOompaLoompas() {
-  const { list: oompaLoompas, isLoading, hasMore, error } = useAppSelector(selectOompaLoompasState);
-
   const [query, setQuery] = useState("");
 
+  const { list: oompaLoompas, isLoading, hasMore, error } = useAppSelector(selectOompaLoompasState);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchOompaLoompas());
@@ -42,8 +43,10 @@ function useOompaLoompas() {
   })
   },[query, oompaLoompas])
 
+  const onHandleClick = useCallback((id: number) => navigate(`/oompa-loompa/${id}`),[navigate])
 
-return { filteredOompaLoompas, hasMore, isLoading, error,query, setQuery };
+
+return { filteredOompaLoompas, hasMore, isLoading, error,query, setQuery, onHandleClick };
 }
 
 export default useOompaLoompas;

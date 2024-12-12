@@ -18,3 +18,5 @@ export const transformToCamelCase =<T>(data: T): T  => {
     }
     return data;
   };
+
+  

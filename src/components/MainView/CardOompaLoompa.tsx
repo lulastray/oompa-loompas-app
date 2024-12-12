@@ -1,10 +1,10 @@
-import { Card, CardContent, CardMedia, Typography } from '@mui/material'
-import { OompaLoompa } from '../../types'
+import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { OompaLoompa } from '../../types';
 
-function CardOompaLoompa({oompaLoompa}: {oompaLoompa: OompaLoompa}) {
-const {image, firstName, lastName, gender, profession} = oompaLoompa
+function CardOompaLoompa({oompaLoompa, onHandleClick}: {oompaLoompa: OompaLoompa; onHandleClick: (id:number) => void}) {
+const {image, firstName, lastName, gender, profession, id} = oompaLoompa
   return (
-    <Card>
+    <Card onClick={()=> onHandleClick(id)}>
       <CardMedia
         component="img"
         height="140"

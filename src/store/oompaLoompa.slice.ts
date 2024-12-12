@@ -22,7 +22,7 @@ const initialState: OompaLoompaState = {
 }
 
 const oompaLoompaSlice = createSlice({
-  name: 'oompaLoompa',
+  name: 'oompaLoompas',
   initialState,
   reducers: {
   

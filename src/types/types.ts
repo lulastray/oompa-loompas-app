@@ -1,21 +1,28 @@
-export type OompaLoompa = {
-    age: number
-    country : string
-    email: string
-    favorite: Favorite
-    firstName: string
-    gender: string
-    height: number
-    id: number
-    image: string
-    lastName: string
-    profession: string
+export interface OompaLoompa {
+  age: number;
+  country: string;
+  email: string;
+  favorite: Favorite;
+  firstName: string;
+  gender: string;
+  height: number;
+  id: number;
+  image: string;
+  lastName: string;
+  profession: string;
+  detail?: OompaLoompaDetail;
 }
 
-export type Favorite ={
-    color: string
-    food: string
-    randomString: string
-    song: string
-    superpower: string  
+export interface Favorite {
+  color: string;
+  food: string;
+  randomString: string;
+  song: string;
+  superpower: string;
+}
+
+interface OompaLoompaDetail {
+  description: string;
+  quote: string;
+  lastFetched: number;
 }

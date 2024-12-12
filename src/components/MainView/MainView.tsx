@@ -11,12 +11,13 @@ function MainView() {
     error,
     query,
     setQuery,
-    
+    onHandleClick,
   } = useOompaLoompas();
 
   if (error) {
     return <Typography color="error">Error: {error.message}</Typography>;
   }
+
 
   return (
     <Container sx={{ height: "100vh" }}>
@@ -40,7 +41,7 @@ function MainView() {
           oompaLoompas.map((oompaLoompa) =>{ 
             return (
             <Grid size={4} key={oompaLoompa.id}>
-              <CardOompaLoompa oompaLoompa={oompaLoompa} />
+              <CardOompaLoompa oompaLoompa={oompaLoompa} onHandleClick={onHandleClick}/>
             </Grid>
           )})}
       </Grid>
