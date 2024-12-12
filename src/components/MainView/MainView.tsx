@@ -1,4 +1,4 @@
-import { Container, TextField, Typography } from "@mui/material";
+import { Box, Container, InputAdornment, TextField, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import useOompaLoompas from "../../hooks/useOompaLoompas";
 import CardOompaLoompa from "./CardOompaLoompa";
@@ -21,16 +21,28 @@ function MainView() {
 
   return (
     <Container sx={{ height: "100vh" }}>
-      <Typography variant="h4" component="h1">
-        Find your Oompa Loompa
-      </Typography>
+      <Box pt={8}>
+       
       <TextField
         value={query}
         onChange={(e)=>setQuery(e.target.value)}
         placeholder="Search Oompa Loompas"
-        fullWidth
         margin="normal"
+        slotProps={{
+          input: {
+        endAdornment:
+          <InputAdornment position="end">
+            <img src="https://s3.eu-central-1.amazonaws.com/napptilus/level-test/imgs/search.png" alt="search" />
+          </InputAdornment>}
+        }}
       />
+    
+      <Typography variant="h4" component="h1">
+        Find your Oompa Loompa
+      </Typography>
+      <Typography variant="subtitle1" component="h1">
+        There are more than 100k
+      </Typography>
       {isLoading && (
         <Typography mt={2} variant="body1">
           Loading...
@@ -45,6 +57,8 @@ function MainView() {
             </Grid>
           )})}
       </Grid>
+   
+      </Box>
     </Container>
   );
 }

@@ -1,5 +1,6 @@
 
 function DetailView() {
+  
   return (
     <div>DetailView</div>
   )
