@@ -49,7 +49,7 @@ Click on any Oompa Loompa to view detailed information such as:
 
 2. Navigate to the project directory:
    ```bash
-   cd oompa-loompa-directory
+   cd oompa-loompa-app
    ```
 
 3. Install dependencies:
