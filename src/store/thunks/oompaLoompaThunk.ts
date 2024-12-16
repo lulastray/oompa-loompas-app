@@ -19,16 +19,13 @@ export const fetchOompaLoompas = createAsyncThunk<{
     state.oompaLoompas as OompaLoompaState;
 
   const listIds = list.map((oompa) => oompa.id);
-  console.log(hasMore,lastFetched, isCacheValid(lastFetched || 0))
 
   if (!hasMore && lastFetched && isCacheValid(lastFetched)) {
-    console.log('here')
     return { currentPage, list: [...list], hasMore: false }
   }
 
   try {
     const response = await getOompaLoompas(currentPage + 1);
-    console.log(response)
     const { current, results } = response;
 
     const resultsToCamelCase = transformToCamelCase(results);

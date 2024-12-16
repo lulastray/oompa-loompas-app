@@ -29,10 +29,6 @@ export const store = configureStore({
 
 export const persistor = persistStore(store)
 
-persistor.subscribe(() => {
-  console.log('Persistor state changed', store.getState());
-});
-
 export type AppStore = typeof store
 export type AppState = ReturnType<AppStore['getState']>
 export type AppDispatch =  AppStore['dispatch']
