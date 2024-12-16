@@ -1,12 +1,36 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import persistReducer from 'redux-persist/es/persistReducer';
+import persistStore from 'redux-persist/es/persistStore';
+import storage from 'redux-persist/lib/storage';
 import oompaLoompaReducer from './oompaLoompa.slice';
 
-export const store = 
-  configureStore({
-    reducer: {
-      oompaLoompas: oompaLoompaReducer,
+const persistConfig = {
+  key: 'oompaLoompas', 
+  storage,
+};
+
+const persistedReducer = persistReducer(
+  persistConfig,
+  oompaLoompaReducer
+);
+
+export const store = configureStore({
+  reducer: {
+    oompaLoompas: persistedReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
+      },
+    }),
+});
+
+export const persistor = persistStore(store)
+
+persistor.subscribe(() => {
+  console.log('Persistor state changed', store.getState());
 });
 
 export type AppStore = typeof store

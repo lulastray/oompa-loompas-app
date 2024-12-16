@@ -10,7 +10,7 @@ export interface OompaLoompa {
   image: string;
   lastName: string;
   profession: string;
-  detail?: OompaLoompaDetail;
+  details?: OompaLoompaDetail;
 }
 
 export interface Favorite {
@@ -21,7 +21,7 @@ export interface Favorite {
   superpower: string;
 }
 
-interface OompaLoompaDetail {
+export interface OompaLoompaDetail {
   description: string;
   quote: string;
   lastFetched: number;

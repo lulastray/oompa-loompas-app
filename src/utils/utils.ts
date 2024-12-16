@@ -1,4 +1,4 @@
-const toCamelCase = (str: string) => {
+export const toCamelCase = (str: string) => {
     return str.replace(/([-_][a-z])/ig, ($1) => {
       return $1.toUpperCase()
         .replace('-', '')

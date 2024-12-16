@@ -19,13 +19,16 @@ export const fetchOompaLoompas = createAsyncThunk<{
     state.oompaLoompas as OompaLoompaState;
 
   const listIds = list.map((oompa) => oompa.id);
+  console.log(hasMore,lastFetched, isCacheValid(lastFetched || 0))
 
   if (!hasMore && lastFetched && isCacheValid(lastFetched)) {
-    return rejectWithValue({ message: "No more Oompa Loompas to fetch" });
+    console.log('here')
+    return { currentPage, list: [...list], hasMore: false }
   }
 
   try {
     const response = await getOompaLoompas(currentPage + 1);
+    console.log(response)
     const { current, results } = response;
 
     const resultsToCamelCase = transformToCamelCase(results);
@@ -48,27 +51,30 @@ export const fetchDetailOompaLoompas = createAsyncThunk<
   number
 >("fetchDetailOompaLoompas", async (id, { getState, rejectWithValue }) => {
   const state = getState() as AppState;
-  const { list, hasMore } = state.oompaLoompas as OompaLoompaState;
+  const { list } = state.oompaLoompas as OompaLoompaState;
   const oompaLoompa = list.find((oompa) => oompa.id === id);
 
   if (!oompaLoompa) return rejectWithValue({ message: "Oompa Loompa not found" });
 
-  if (oompaLoompa?.detail) {
+  if (oompaLoompa?.details) {
     return oompaLoompa;
   }
-  const {detail} = oompaLoompa
+  const { details } = oompaLoompa
 
-  if (!hasMore && detail && isCacheValid(detail.lastFetched)) {
-    return rejectWithValue({ message: "No more Oompa Loompas to fetch" });
+  if (details && isCacheValid(details.lastFetched)) {
+    return oompaLoompa;
   }
 
   try {
     const response = await getOompaLoompaById(id);
-    console.log("response", response);
-    const { current, results } = response;
-    // const newResults = results.filter((oompa) => !listIds.includes(oompa.id))
+    
+    const details= {
+      description: response.description,
+      quote: response.quotes,
+      lastFetched: Date.now()
+    }
 
-    return { ...oompaLoompa, details: response, lastFetched: Date.now() };
+    return { ...oompaLoompa, details };
   } catch (error) {
     return rejectWithValue(error);
   }

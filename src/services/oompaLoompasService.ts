@@ -13,7 +13,6 @@ const API_URL =
 export const getOompaLoompas = async (page: number): Promise<ResponseOompaLoompas> => {
   try {
     const response = await axios.get(`${API_URL}/oompa-loompas?page=${page}`);
-    console.log(response)
     return response.data;
   } catch (error) {
     console.error("Error fetching Oompa Loompas:", error);
@@ -26,7 +25,6 @@ export const getOompaLoompaById = async (id: number) => {
     const response = await axios.get(
       `${API_URL}/oompa-loompas/${id}`
     );
-    console.log(response)
     return response.data;
   } catch (error) {
     console.error("Error fetching Oompa Loompa details:", error);

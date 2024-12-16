@@ -1,4 +1,4 @@
-import { Container, InputAdornment, Stack, TextField, Typography } from "@mui/material";
+import { CircularProgress, Container, InputAdornment, Stack, TextField, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import searchImg from "../../assets/ic_search.png";
 import useOompaLoompas from "../../hooks/useOompaLoompas";
@@ -23,7 +23,7 @@ function MainView() {
   return (
     <Container sx={{ height: "100vh" }}>
       <Stack pt={8} justifyContent="center" alignItems="center">
-        <Stack direction="row" justifySelf="start" width={1}>
+        <Stack direction="row" justifyContent="end" width={1}>
           <TextField
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -45,21 +45,24 @@ function MainView() {
         <Typography variant="subtitle1" component="h1">
           There are more than 100k
         </Typography>
-        {isLoading && (
-          <Typography mt={2} variant="body1">
-            Loading...
-          </Typography>
+    
+        {!isLoading && !oompaLoompas?.length && query && 
+        (<Typography mt={2} variant="body1">Sorry, Oompa loompa not found </Typography>
+          
         )}
-        <Grid mt={4} container spacing={3}>
+        <Grid mt={4} container spacing={3} justifyContent="center" alignItems="center">
           {oompaLoompas &&
             oompaLoompas.map((oompaLoompa) => {
               return (
-                <Grid size={4} key={oompaLoompa.id}>
+                <Grid size={{xs:12,sm: 6,md:4}} key={oompaLoompa.id}>
                   <CardOompaLoompa oompaLoompa={oompaLoompa} onHandleClick={onHandleClick} />
                 </Grid>
               )
             })}
         </Grid>
+        {isLoading && (
+            <CircularProgress size={50}/>
+        )}
 
       </Stack>
     </Container>

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction, SerializedError } from '@reduxjs/toolkit';
 import { OompaLoompa } from '../types';
-import { fetchOompaLoompas } from './thunks/oompaLoompaThunk';
+import { fetchDetailOompaLoompas, fetchOompaLoompas } from './thunks/oompaLoompaThunk';
+
 
 export interface OompaLoompaState {
     list: OompaLoompa[];
@@ -41,6 +42,18 @@ const oompaLoompaSlice = createSlice({
       state.isLoading = false;
       state.error = action.error || 'Failed to fetch Oompa Loompas'
     })
+    builder.addCase(
+      fetchDetailOompaLoompas.fulfilled,
+      (state, action: PayloadAction<OompaLoompa>) => {
+          const { id, details } = action.payload;
+          
+          state.list = state.list.map((oompaLoompa) =>
+              oompaLoompa.id === id
+                  ? { ...oompaLoompa, details } // Añadimos los detalles
+                  : oompaLoompa
+          );
+      }
+  );
   }
 });
 

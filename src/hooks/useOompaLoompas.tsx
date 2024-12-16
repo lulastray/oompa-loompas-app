@@ -8,12 +8,12 @@ import { fetchOompaLoompas } from "../store/thunks/oompaLoompaThunk";
 function useOompaLoompas() {
   const [query, setQuery] = useState("");
 
-  const { list: oompaLoompas, isLoading, hasMore, error } = useAppSelector(selectOompaLoompasState);
+  const { list: oompaLoompas, currentPage, isLoading, hasMore, error } = useAppSelector(selectOompaLoompasState);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(fetchOompaLoompas());
+    if (currentPage === 0) dispatch(fetchOompaLoompas())
   }, []);
 
   const handleScroll = useCallback(() => {
@@ -21,7 +21,7 @@ function useOompaLoompas() {
       !isLoading &&
       hasMore &&
       window.innerHeight + document.documentElement.scrollTop + 50 >=
-        document.documentElement.scrollHeight
+      document.documentElement.scrollHeight
     ) {
       dispatch(fetchOompaLoompas());
     }
@@ -35,18 +35,19 @@ function useOompaLoompas() {
 
 
   const filteredOompaLoompas = useMemo(() => {
-    if(!query)return oompaLoompas
+    if (!query) return oompaLoompas
+
     return oompaLoompas.filter((oompaLoompa) => {
       return oompaLoompa.firstName.toLowerCase().includes(query.toLowerCase()) ||
-       oompaLoompa.lastName.toLowerCase().includes(query.toLowerCase()) || 
-       oompaLoompa.profession.toLowerCase().includes(query.toLowerCase())
-  })
-  },[query, oompaLoompas])
+        oompaLoompa.lastName.toLowerCase().includes(query.toLowerCase()) ||
+        oompaLoompa.profession.toLowerCase().includes(query.toLowerCase())
+    })
+  }, [query, oompaLoompas])
 
-  const onHandleClick = useCallback((id: number) => navigate(`/oompa-loompa/${id}`),[navigate])
+  const onHandleClick = useCallback((id: number) => navigate(`/${id}`), [navigate])
 
 
-return { filteredOompaLoompas, hasMore, isLoading, error,query, setQuery, onHandleClick };
+  return { filteredOompaLoompas, hasMore, isLoading, error, query, setQuery, onHandleClick };
 }
 
 export default useOompaLoompas;
